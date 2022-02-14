@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/catsListFragment">
+
+    <fragment
+        android:id="@+id/catsListFragment"
+        android:name="com.mzhadan.catsapp.ui.catsListPage.CatsListFragment"
+        android:label="cats_list_fragment"
+        tools:layout="@layout/cats_list_fragment" />
+    <fragment
+        android:id="@+id/catsFavoriteFragment"
+        android:name="com.mzhadan.catsapp.ui.catsFavoritePage.CatsFavoriteFragment"
+        android:label="cats_favorite_fragment"
+        tools:layout="@layout/cats_favorite_fragment" />
+    <fragment
+        android:id="@+id/catsDownloadFragment"
+        android:name="com.mzhadan.catsapp.ui.catsDownloadPage.CatsDownloadFragment"
+        android:label="cats_download_fragment"
+        tools:layout="@layout/cats_download_fragment" />
+    <fragment
+        android:id="@+id/catsInfoFragment"
+        android:name="com.mzhadan.catsapp.ui.catsInfoPage.CatsInfoFragment"
+        android:label="cats_info_fragment"
+        tools:layout="@layout/cats_info_fragment" />
+
+</navigation>

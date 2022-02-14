@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/catsListFragment"
+        android:icon="@drawable/cats_list_icon"
+        android:title="Cats"/>
+
+    <item
+        android:id="@+id/catsFavoriteFragment"
+        android:icon="@drawable/cats_favorite_icon"
+        android:title="Favorite"/>
+
+    <item
+        android:id="@+id/catsDownloadFragment"
+        android:icon="@drawable/cats_download_icon"
+        android:title="Download"/>
+
+</menu>

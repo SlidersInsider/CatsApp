@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.catsInfoPage.CatsInfoFragment">
+
+    <ImageView
+        android:id="@+id/catInfoFragmentImageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/catInfoFragmentName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/catInfoFragmentImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="30dp"
+        android:text="Name"/>
+
+    <Button
+        android:id="@+id/buttonLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Like"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonDisLike"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="300dp"/>
+
+    <Button
+        android:id="@+id/buttonDisLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dislike"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/buttonLike"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="300dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/infoCatsListRecyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLike"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
