@@ -1,5 +1,7 @@
 package com.mzhadan.catsapp.ui.catsFavoritePage
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,10 +30,20 @@ class CatsFavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupRecyclerView()
-        setupViewModel()
-        setupRecyclerRefresh()
-        setupStatusMessage()
+        if (isNetworkConnected()) {
+            setupRecyclerView()
+            setupViewModel()
+            setupRecyclerRefresh()
+            setupStatusMessage()
+        } else {
+            favoriteCatsListRecyclerView.visibility = View.GONE
+            Toast.makeText(context, "No internet connection", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun isNetworkConnected(): Boolean {
+        val cm = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return cm.activeNetworkInfo != null && cm.activeNetworkInfo!!.isConnected
     }
 
     private fun setupRecyclerView(){
@@ -54,6 +66,8 @@ class CatsFavoriteFragment : Fragment() {
 
     private fun setupViewModel(){
         catsFavoriteViewModel = ViewModelProvider(this).get(CatsFavoriteViewModel::class.java)
+
+        favoriteCatsListRecyclerView.visibility = View.VISIBLE
 
         catsFavoriteViewModel.favoriteCatsLiveData.observe(viewLifecycleOwner, {
             if(it != null){

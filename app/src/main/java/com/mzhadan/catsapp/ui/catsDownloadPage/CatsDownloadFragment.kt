@@ -1,8 +1,10 @@
 package com.mzhadan.catsapp.ui.catsDownloadPage
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -44,19 +46,30 @@ class CatsDownloadFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupRecyclerView()
-        setupViewModel()
+        if(isNetworkConnected()) {
+            setupRecyclerView()
+            setupViewModel()
 
-        openGalleryButton.setOnClickListener {
-            openGallery()
+            openGalleryButton.setOnClickListener {
+                openGallery()
+            }
+
+            openCameraButton.setOnClickListener {
+                openCamera()
+            }
+
+            setupStatusMessage()
+            setupRecyclerRefresh()
+        } else {
+            downloadCatsListRecyclerView.visibility = View.GONE
+            Toast.makeText(context, "No internet connection", Toast.LENGTH_LONG).show()
         }
 
-        openCameraButton.setOnClickListener {
-            openCamera()
-        }
+    }
 
-        setupStatusMessage()
-        setupRecyclerRefresh()
+    private fun isNetworkConnected(): Boolean {
+        val cm = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return cm.activeNetworkInfo != null && cm.activeNetworkInfo!!.isConnected
     }
 
     private fun setupRecyclerView(){

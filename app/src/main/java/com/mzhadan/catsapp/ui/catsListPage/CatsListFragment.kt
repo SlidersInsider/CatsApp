@@ -1,5 +1,7 @@
 package com.mzhadan.catsapp.ui.catsListPage
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,12 +36,19 @@ class CatsListFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupRecyclerView()
-        setupViewModel()
-        setupFilters()
+        if (isNetworkConnected()) {
+            setupRecyclerView()
+            setupViewModel()
+            setupFilters()
 
-        setupStatusMessage()
-        setupRecyclerRefresh()
+            setupStatusMessage()
+            setupRecyclerRefresh()
+        } else {
+            breedListSpinner.visibility = View.GONE
+            categoryListSpinner.visibility = View.GONE
+            mainCatsListRecyclerView.visibility = View.GONE
+            Toast.makeText(context, "No internet connection", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun setupRecyclerView(){
@@ -60,8 +69,17 @@ class CatsListFragment: Fragment() {
         mainCatsListRecyclerView.adapter = catsListRecyclerAdapter
     }
 
+    private fun isNetworkConnected(): Boolean {
+        val cm = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return cm.activeNetworkInfo != null && cm.activeNetworkInfo!!.isConnected
+    }
+
     private fun setupViewModel(){
         catsListViewModel = ViewModelProvider(this).get(CatsListViewModel::class.java)
+
+        breedListSpinner.visibility = View.VISIBLE
+        categoryListSpinner.visibility = View.VISIBLE
+        mainCatsListRecyclerView.visibility = View.VISIBLE
 
         catsListViewModel.catsListLiveData.observe(viewLifecycleOwner, {
             if(it != null){
@@ -71,7 +89,6 @@ class CatsListFragment: Fragment() {
                 Toast.makeText(context, "Failed to fetch data!", Toast.LENGTH_SHORT).show()
             }
         })
-
     }
 
     private fun setupFilters(){
